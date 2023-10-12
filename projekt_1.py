@@ -50,10 +50,10 @@ else:
     password = input("Password: ")
     if users_passwords.get(user) == password:
         print(separator)
-        print(f"Welcome to the app, {user}\nWe have 3 texts to be analyzed.")
+        print(f"Welcome to the app, {user}\nWe have {len(TEXTS)} texts to be analyzed.")
         print(separator)
-        text_choice = int(input("Enter a number btw. 1 and 3 to select: "))
-        if text_choice in range(1, 4):
+        text_choice = int(input(f"Enter a number btw. 1 and {len(TEXTS)} to select: "))
+        if text_choice in range(1, (len(TEXTS)) + 1):
             text_list = TEXTS[text_choice - 1].split()
             titlecase = 0
             uppercase = 0
