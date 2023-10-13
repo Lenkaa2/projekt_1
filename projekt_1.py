@@ -33,7 +33,7 @@ other freshwater genera and herring similar to those
 in modern oceans. Other fish such as paddlefish,
 garpike and stingray are also present.'''
 ]
-registered_users = ['bob', 'ann', 'mike', 'liz']
+
 users_passwords = {
                     'bob': '123', 
                     'ann': 'pass123', 
@@ -43,8 +43,10 @@ users_passwords = {
 separator = '-' * 40
 
 user = input("Username: ")
-if user not in registered_users:
+if user not in users_passwords.keys():
+    print(separator)
     print("Unregistered user. Terminating program..")
+    print(separator)
 
 else:
     password = input("Password: ")
@@ -52,14 +54,16 @@ else:
         print(separator)
         print(f"Welcome to the app, {user}\nWe have {len(TEXTS)} texts to be analyzed.")
         print(separator)
-        text_choice = int(input(f"Enter a number btw. 1 and {len(TEXTS)} to select: "))
-        if text_choice in range(1, (len(TEXTS)) + 1):
-            text_list = TEXTS[text_choice - 1].split()
+        text_choice = input(f"Enter a number btw. 1 and {len(TEXTS)} to select: ")
+        
+        # analyze user chooice text
+        if int(text_choice) in range(1, (len(TEXTS)) + 1):
+            text_list = TEXTS[(int(text_choice)) - 1].split()
             titlecase = 0
             uppercase = 0
             lowercase = 0
             numeric = 0
-            numeric_list = []
+            numeric_sum = 0
             for character in text_list:
                 if character.istitle():
                     titlecase += 1
@@ -69,30 +73,43 @@ else:
                     lowercase += 1
                 elif character.isnumeric(): 
                     numeric += 1
-                    numeric_list.append(int(character))
+                    numeric_sum += int(character)
             print(separator)
             print(f"There are {len(text_list)} words in the selected text.")
             print(f"There are {titlecase} titlecase words.")
             print(f"There are {uppercase} uppercase words.")
             print(f"There are {lowercase} lowercase words.")
             print(f"There are {numeric} numeric strings.")
-            print(f"The sum of all the numbers {sum(numeric_list)}.")
+            print(f"The sum of all the numbers {numeric_sum}.")
             print(separator)
-            print(("LEN| OCCURANCES\t|NR.").expandtabs(22))
+            print(("LEN| OCCURANCES\t|NR.").expandtabs(23))
             print(separator)
             
-            len_words = []
-            for words in text_list:
-                len_words.append(len(words))
+            # len words chart
+            clear_text = []
+            len_occurance = {}
+            for one_word in text_list:
+                clear_text.append(len(one_word.strip(',.')))
             
-            for index in range(min(len_words), max(len_words) + 1):
-                occurance = len_words.count(index)
-                print((f"{str(index).ljust(2)} | {occurance * '*'}\t|{occurance}").expandtabs(22))
-        else:
+            for number in clear_text:
+                if number not in len_occurance:
+                    len_occurance[number] = 1
+                else:
+                    len_occurance[number] = len_occurance[number] + 1
+            
+            for key, value in sorted(len_occurance.items()):
+                print((f"{str(key).ljust(2)} | {value * '*'}\t|{value}").expandtabs(23))
+
+        elif int(text_choice) > len(TEXTS):
             print(separator)
             print("The number is out of range, terminating program..")
             print(separator)
-    
+        
+        elif int(text_choice) < 1:
+            print(separator)
+            print("The number is out of range, terminating program..")
+            print(separator)
+        
     else: 
         print(separator)
         print("Wrong password, try again.")
