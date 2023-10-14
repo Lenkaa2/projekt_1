@@ -57,59 +57,59 @@ else:
         text_choice = input(f"Enter a number btw. 1 and {len(TEXTS)} to select: ")
         
         # analyze user chooice text
-        if int(text_choice) in range(1, (len(TEXTS)) + 1):
-            text_list = TEXTS[(int(text_choice)) - 1].split()
-            titlecase = 0
-            uppercase = 0
-            lowercase = 0
-            numeric = 0
-            numeric_sum = 0
-            for character in text_list:
-                if character.istitle():
-                    titlecase += 1
-                elif character.isupper():
-                    uppercase += 1
-                elif character.islower():
-                    lowercase += 1
-                elif character.isnumeric(): 
-                    numeric += 1
-                    numeric_sum += int(character)
-            print(separator)
-            print(f"There are {len(text_list)} words in the selected text.")
-            print(f"There are {titlecase} titlecase words.")
-            print(f"There are {uppercase} uppercase words.")
-            print(f"There are {lowercase} lowercase words.")
-            print(f"There are {numeric} numeric strings.")
-            print(f"The sum of all the numbers {numeric_sum}.")
-            print(separator)
-            print(("LEN| OCCURANCES\t|NR.").expandtabs(23))
-            print(separator)
-            
-            # len words chart
-            clear_text = []
-            len_occurance = {}
-            for one_word in text_list:
-                clear_text.append(len(one_word.strip(',.')))
-            
-            for number in clear_text:
-                if number not in len_occurance:
-                    len_occurance[number] = 1
-                else:
-                    len_occurance[number] = len_occurance[number] + 1
-            
-            for key, value in sorted(len_occurance.items()):
-                print((f"{str(key).ljust(2)} | {value * '*'}\t|{value}").expandtabs(23))
+        if text_choice.isdigit():
+            if int(text_choice) in range(1, (len(TEXTS)) + 1):
+                text_list = TEXTS[(int(text_choice)) - 1].split()
+                titlecase = 0
+                uppercase = 0
+                lowercase = 0
+                numeric = 0
+                numeric_sum = 0
+                for character in text_list:
+                    if character.istitle():
+                        titlecase += 1
+                    elif character.isupper():
+                        uppercase += 1
+                    elif character.islower():
+                        lowercase += 1
+                    elif character.isnumeric(): 
+                        numeric += 1
+                        numeric_sum += int(character)
+                print(separator)
+                print(f"There are {len(text_list)} words in the selected text.")
+                print(f"There are {titlecase} titlecase words.")
+                print(f"There are {uppercase} uppercase words.")
+                print(f"There are {lowercase} lowercase words.")
+                print(f"There are {numeric} numeric strings.")
+                print(f"The sum of all the numbers {numeric_sum}.")
+                print(separator)
+                print(("LEN| OCCURANCES\t|NR.").expandtabs(23))
+                print(separator)
+                
+                # len words chart
+                clear_text = []
+                len_occurance = {}
+                for one_word in text_list:
+                    clear_text.append(len(one_word.strip(',.')))
+                
+                for number in clear_text:
+                    if number not in len_occurance:
+                        len_occurance[number] = 1
+                    else:
+                        len_occurance[number] = len_occurance[number] + 1
+                
+                for key, value in sorted(len_occurance.items()):
+                    print((f"{str(key).ljust(2)} | {value * '*'}\t|{value}").expandtabs(23))
 
-        elif int(text_choice) > len(TEXTS):
+            else:
+                print(separator)
+                print("The number is out of range, terminating program..")
+                print(separator)
+        else:
+
             print(separator)
-            print("The number is out of range, terminating program..")
+            print("Not digit entered, terminating program..")
             print(separator)
-        
-        elif int(text_choice) < 1:
-            print(separator)
-            print("The number is out of range, terminating program..")
-            print(separator)
-        
     else: 
         print(separator)
         print("Wrong password, try again.")
